@@ -33,3 +33,24 @@ The design follows the Single Responsibility Principle.
 Adding new AI players requires no changes to existing game engine code.
 Strategy pattern is visible: each Player is a different strategy object.
 Good separation of concerns makes the code more maintainable and extensible.
+
+
+## 
+Lab 6 - Interfaces (and GUIs with JavaFX)
+
+###
+JavaFX APPLICATION extends Application and overrides start() to set up Stage and Scene.
+BORDERPANE as root to organize the screen into top/center/bottom regions.
+GRIDPANE used to layout the 3x2 grid of cards visually.
+CARDBUTTON extends Button and handles its own ActionEvent via EventHandler<ActionEvent>.
+BASECARD as an abstract class to define common card data (value + matched state).
+CARD extends BaseCard as a concrete implementation used by the game.
+MATCHCHECKER is an interface so different match strategies could be plugged in.
+SIMPLEMATCHCHECKER implements MatchChecker with basic value comparison logic.
+GAMECONTROLLER coordinates UI + game logic but does not know about JavaFX Application details.
+SUBTYPE POLYMORPHISM: GameController works with MatchChecker, but uses SimpleMatchChecker instance.
+PAUSETRANSITION adds a small delay before flipping cards back, improves UX and shows async behaviour.
+SEPARATION OF CONCERNS: Main only starts the app, GameController handles rules, Card/CardButton hold data+UI.
+EVENT HANDLING: clicking a CardButton triggers handle(), which calls controller.handleCardClick(this).
+RESET GAME logic reuses initGame() to rebuild the grid and state without recreating the whole UI.
+MODULE / RUN CONFIG issues (JavaFX + modules) forced me to understand classpath vs module-path better.
